@@ -36,10 +36,11 @@ http.createServer(function (req, res) {
 	console.log(path);
 	
 	if(path == "/install" && req.method == 'POST') {
+		var payload;
 		req.on('data', function(chunk) {
 			var payloadStr = queryString.parse(chunk.toString()).payload;
 			console.log(payloadStr);
-			var payload = JSON.parse(payloadStr);
+			payload = JSON.parse(payloadStr);
 			console.log(payload.repository.name);
 		});
 		
