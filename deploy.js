@@ -18,11 +18,11 @@ var apps = {
 	
 function gitPull(name) {
 	var folder = apps[name].folder;
-	exec('forever stop ' + folder + apps[name].serverFile, function(error, stdout, stderr) {
+	exec('cd ' + folder + ' && forever stop 'apps[name].serverFile, function(error, stdout, stderr) {
 		console.log(stdout);
 		exec('cd ' + folder + ' && git pull', function(error, stdout, stderr) {
 			console.log(stdout);
-			exec('forever start ' + folder + apps[name].serverFile, function (error, stdout, stderr) {
+			exec('cd ' + folder + ' && forever start ' apps[name].serverFile, function (error, stdout, stderr) {
 				console.log(stdout);
 			});
 		});
