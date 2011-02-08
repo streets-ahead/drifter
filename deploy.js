@@ -5,7 +5,7 @@ var http = require('http'),
 	
 var apps = {
 	"Chatter" : {
-		"folder" : "~/Chatter",
+		"folder" : "~/Chatter/",
 		"serverFile" : "server.js"
  	}
 //,
@@ -17,18 +17,17 @@ var apps = {
 
 	
 function gitPull(name) {
-	exec('cd ' + apps[name].folder, function (error, stdout, stderr) {
+	var folder = apps[name].folder;
+	exec('forever stop ' + folder + apps[name].serverFile, function(error, stdout, stderr) {
 		console.log(stdout);
-		exec('forever stop ' + apps[name].serverFile, function(error, stdout, stderr) {
+		exec('cd ' + folder + ' && git pull', function(error, stdout, stderr) {
 			console.log(stdout);
-			exec('git pull', function(error, stdout, stderr) {
+			exec('forever start ' + folder + apps[name].serverFile, function (error, stdout, stderr) {
 				console.log(stdout);
-				exec('forever start ' + apps[name].serverFile, function (error, stdout, stderr) {
-					console.log(stdout);
-				});
 			});
 		});
 	});
+
 }
 	
 http.createServer(function (req, res) {
