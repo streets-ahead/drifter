@@ -1,6 +1,7 @@
 var http = require('http'),
 	url = require('url'),
-	exec  = require('child_process').exec;
+	exec  = require('child_process').exec,
+	queryString = require('querystring');
 	
 var apps = {
 	"Chatter" : {
@@ -33,14 +34,19 @@ function gitPull(name) {
 http.createServer(function (req, res) {
 	var path = url.parse(req.url).pathname;
 	console.log(path);
-	console.log(req.body.payload);
-	var payload = JSON.parse(req.body.payload);
 	
-	if(path == "/install") {
+	if(path == "/install" && req.method == 'POST') {
+		req.on('data', function(chunk) {
+			var payloadStr = queryString.parse(chunk.toString()).payload;
+			console.log(payloadStr);
+			var payload = JSON.parse(payloadStr);
+			console.log(payload.repository.name);
+		});
+		
 		try {
 			gitPull(payload.repository.name);
 		} catch(e) {
-			
+			console.log("an error occurred");
 		}
 			res.writeHead(200, {'Content-Type': 'text/plain'});
  			res.end('Success\n');
