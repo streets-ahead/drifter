@@ -42,11 +42,10 @@ http.createServer(function (req, res) {
 			console.log(payloadStr);
 			payload = JSON.parse(payloadStr);
 			console.log(payload.repository.name);
+			gitPull(payload.repository.name);
+			res.writeHead(200, {'Content-Type': 'text/plain'});
+			res.end('Success\n');
 		});
-
-		gitPull(payload.repository.name);
-		res.writeHead(200, {'Content-Type': 'text/plain'});
-		res.end('Success\n');
 	} else {
 		res.writeHead(404, {'Content-Type': 'text/plain'});
  		res.end('Not Found\n');
