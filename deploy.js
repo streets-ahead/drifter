@@ -54,6 +54,6 @@ http.createServer(function (req, res) {
 		res.writeHead(404, {'Content-Type': 'text/plain'});
  		res.end('Not Found\n');
 	}
-}).listen(8124, "127.0.0.1");
+}).listen(8124);
 
-console.log('Server running at http://127.0.0.1:8124/');
+console.log('Server running on 8124');
