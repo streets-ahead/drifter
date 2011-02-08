@@ -7,12 +7,11 @@ var apps = {
 	"Chatter" : {
 		"folder" : "~/Chatter/",
 		"serverFile" : "server.js"
- 	}
-//,
-	// "eventBum-Backend" : {
-	// 		"folder" : "~/eB",
-	// 		"serverFile" : "server.js"
-	// 	}
+ 	},
+	"eventBum-Backend" : {
+			"folder" : "~/eB",
+			"serverFile" : "eb.js"
+		}
 };
 
 	
