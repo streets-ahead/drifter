@@ -47,6 +47,7 @@ http.createServer(function (req, res) {
 			gitPull(payload.repository.name);
 		} catch(e) {
 			console.log("an error occurred");
+			console.log(e);
 		}
 			res.writeHead(200, {'Content-Type': 'text/plain'});
  			res.end('Success\n');
