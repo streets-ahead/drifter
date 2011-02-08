@@ -35,9 +35,13 @@ http.createServer(function (req, res) {
 	console.log(path);
 	
 	if(path == "/install" && req.method == 'POST') {
-		var payload;
+		var payload, bodyStr = '';
 		req.on('data', function(chunk) {
-			var payloadStr = queryString.parse(chunk.toString()).payload;
+			bodyStr += chunk.toString();
+		});
+		
+		req.on('end', function () {
+			var payloadStr = queryString.parse(bodyStr).payload;
 			console.log(payloadStr);
 			payload = JSON.parse(payloadStr);
 			console.log(payload.repository.name);
