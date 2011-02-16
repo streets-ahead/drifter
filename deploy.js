@@ -23,10 +23,9 @@ function gitPull(name) {
 	var folder = apps[name].folder;
 	exec('cd ' + folder + ' && forever stop ' + apps[name].serverFile, function(error, stdout, stderr) {
 		console.log(stdout);
-		exec('cd ' + folder + ' && git pull', function(error, stdout, stderr) {
+		exec('export LB_BASE_URL=http://chatterapp.info:8888/ && cd ' + folder + ' && git pull', function(error, stdout, stderr) {
 			console.log(stdout);
-			exec('cd ' + folder + ' && forever start ' + apps[name].serverFile, 
-								{env:{"LB_BASE_URL":"http://chatterapp.info:8888/"}}, function (error, stdout, stderr) {
+			exec('cd ' + folder + ' && forever start ' + apps[name].serverFile, function (error, stdout, stderr) {
 				console.log(stdout);
 			});
 		});
