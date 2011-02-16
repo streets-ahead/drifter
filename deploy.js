@@ -26,7 +26,7 @@ function gitPull(name) {
 		exec('cd ' + folder + ' && git pull', function(error, stdout, stderr) {
 			console.log(stdout);
 			exec('cd ' + folder + ' && forever start ' + apps[name].serverFile, 
-								{env:"LB_BASE_URL=http://chatterapp.info:8888/"}, function (error, stdout, stderr) {
+								{env:{"LB_BASE_URL":"http://chatterapp.info:8888/"}}, function (error, stdout, stderr) {
 				console.log(stdout);
 			});
 		});
