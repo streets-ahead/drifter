@@ -3,6 +3,10 @@ var http = require('http'),
 	exec  = require('child_process').exec,
 	queryString = require('querystring');
 	
+/*
+ * Add a config object for everyapp you need to auto deploy.
+ *
+ */
 var apps = {
 	"Chatter" : {
 		"folder" : "~/Chatter/",
@@ -21,12 +25,12 @@ function gitPull(name) {
 		console.log(stdout);
 		exec('cd ' + folder + ' && git pull', function(error, stdout, stderr) {
 			console.log(stdout);
-			exec('cd ' + folder + ' && forever start ' + apps[name].serverFile, function (error, stdout, stderr) {
+			exec('cd ' + folder + ' && forever start ' + apps[name].serverFile, 
+								{env:"LB_BASE_URL=http://chatterapp.info:8888/"}, function (error, stdout, stderr) {
 				console.log(stdout);
 			});
 		});
 	});
-
 }
 	
 http.createServer(function (req, res) {
@@ -55,3 +59,4 @@ http.createServer(function (req, res) {
 }).listen(8124);
 
 console.log('Server running on 8124');
+
