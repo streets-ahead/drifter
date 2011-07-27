@@ -13,9 +13,9 @@ var apps = {
 		"serverFile" : "server.js"
  	},
 	"eventBum-Backend" : {
-			"folder" : "~/eB",
-			"serverFile" : "eb.js"
-		}
+		"folder" : "~/eB",
+		"serverFile" : "eb.js"
+	}
 };
 
 	
